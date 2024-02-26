@@ -77,4 +77,40 @@ class FibonacciTest {
         // Assert
         assertEquals(610, result);
     }
+
+    @Test
+    public void fiboIter_zero_returnsZero() {
+        // Arrange
+        final int n = 0;
+
+        // Act
+        var result = Fibonacci.fiboIter(n);
+
+        // Assert
+        assertEquals(0, result);
+    }
+
+    @Test
+    public void fiboIter_one_returnsOne() {
+        // Arrange
+        final int n = 1;
+
+        // Act
+        var result = Fibonacci.fiboIter(n);
+
+        // Assert
+        assertEquals(1, result);
+    }
+
+    @Test
+    public void fiboIter_fifteen_returns610() {
+        // Arrange
+        final int n = 15;
+
+        // Act
+        var result = Fibonacci.fiboIter(n);
+
+        // Assert
+        assertEquals(610, result);
+    }
 }
