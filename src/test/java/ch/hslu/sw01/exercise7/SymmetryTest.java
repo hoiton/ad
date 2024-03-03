@@ -1,4 +1,4 @@
-package ch.hslu.sw01.exercise6;
+package ch.hslu.sw01.exercise7;
 
 import org.junit.jupiter.api.Test;
 
