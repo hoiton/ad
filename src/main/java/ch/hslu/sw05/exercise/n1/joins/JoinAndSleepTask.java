@@ -56,7 +56,7 @@ public class JoinAndSleepTask implements Runnable {
      */
     @Override
     public void run() {
-        LOG.info(taskName + " gestartet");
+        LOG.info(taskName + " gestartet; Thread-Name: " + Thread.currentThread().getName());
         if (joinFor != null) {
             try {
                 LOG.info(taskName + " wartet auf " + joinFor.getName());

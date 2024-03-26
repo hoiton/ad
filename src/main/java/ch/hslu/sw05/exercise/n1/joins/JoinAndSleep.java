@@ -39,9 +39,15 @@ public class JoinAndSleep {
         var t3 = new Thread(thread3);
         var t2 = new Thread(thread2);
         var t1 = new Thread(thread1);
-        
-        LOG.info("Main-Thread beendet.");
 
+        thread2.join(t3);
+        thread1.join(t2);
         t1.join();
+
+        t1.start();
+        t2.start();
+        t3.start();
+
+        LOG.info("Main-Thread beendet.");
     }
 }
