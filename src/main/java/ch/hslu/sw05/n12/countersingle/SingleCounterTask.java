@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.hslu.ad.n12.countersingle;
+package ch.hslu.sw05.n12.countersingle;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -17,4 +17,4 @@
 /**
  * Inhalt von N21 - Semaphor Code Skizze.
  */
-package ch.hslu.ad.n21.sema;
+package ch.hslu.sw06.n21.sema;

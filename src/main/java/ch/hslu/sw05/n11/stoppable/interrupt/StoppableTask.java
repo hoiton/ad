@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.hslu.ad.n11.stoppable.interrupt;
+package ch.hslu.sw05.n11.stoppable.interrupt;
 
 import java.math.BigInteger;
 import org.slf4j.LoggerFactory;

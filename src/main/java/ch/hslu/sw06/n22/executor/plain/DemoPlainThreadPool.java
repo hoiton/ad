@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.hslu.ad.n22.executor.plain;
+package ch.hslu.sw06.n22.executor.plain;
 
-import ch.hslu.ad.n21.buffer.sema.BoundedBuffer;
-import ch.hslu.ad.n21.buffer.sema.Consumer;
-import ch.hslu.ad.n21.buffer.sema.Producer;
+import ch.hslu.sw06.n21.buffer.sema.BoundedBuffer;
+import ch.hslu.sw06.n21.buffer.sema.Consumer;
+import ch.hslu.sw06.n21.buffer.sema.Producer;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import org.slf4j.LoggerFactory;

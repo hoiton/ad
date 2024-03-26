@@ -17,4 +17,4 @@
 /**
  * Inhalt von N22 - Executor als einfacher Thread Pool - Code Skizze.
  */
-package ch.hslu.ad.n22.executor.plain;
+package ch.hslu.sw06.n22.executor.plain;

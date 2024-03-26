@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.hslu.ad.n21.buffer.sema;
+package ch.hslu.sw06.n21.buffer.sema;
 
-import ch.hslu.ad.n21.buffer.Buffer;
+import ch.hslu.sw06.n21.buffer.Buffer;
 import java.util.ArrayDeque;
 import java.util.concurrent.Semaphore;
 

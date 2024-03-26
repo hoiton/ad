@@ -17,4 +17,4 @@
 /**
  * Inhalt von N22 - Beispiel zu Threadpool mit fixer Anzahl Worker.
  */
-package ch.hslu.ad.n22.executor.fixedpool;
+package ch.hslu.sw06.n22.executor.fixedpool;

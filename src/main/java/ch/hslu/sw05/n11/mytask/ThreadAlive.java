@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.hslu.ad.n11.mytask;
+package ch.hslu.sw05.n11.mytask;
 
 /**
  * Zeichen-Ausgabe auf gemeinsame Ressource Console.

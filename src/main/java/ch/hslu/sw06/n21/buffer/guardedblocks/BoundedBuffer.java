@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.hslu.ad.n21.buffer.guardedblocks;
+package ch.hslu.sw06.n21.buffer.guardedblocks;
 
-import ch.hslu.ad.n21.buffer.Buffer;
+import ch.hslu.sw06.n21.buffer.Buffer;
 
 /**
  * Buffer (First In First Out) mit einer begrenzten Kapazität. Der Puffer ist

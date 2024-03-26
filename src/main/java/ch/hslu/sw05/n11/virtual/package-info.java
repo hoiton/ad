@@ -17,4 +17,4 @@
  * Inhalt von N11 - Erzeugung von konventionellen und virtuellen Threads, 
  * sowie Demo des Runnable Zustands.
  */
-package ch.hslu.ad.n11.virtual;
+package ch.hslu.sw05.n11.virtual;

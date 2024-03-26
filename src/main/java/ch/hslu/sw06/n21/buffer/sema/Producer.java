@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.hslu.ad.n21.buffer.sema;
+package ch.hslu.sw06.n21.buffer.sema;
 
 /**
  * Produzent, der eine maximale Anzahl Werte produziert und diese in eine Queue

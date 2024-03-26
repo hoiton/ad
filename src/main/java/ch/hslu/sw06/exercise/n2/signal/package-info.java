@@ -17,4 +17,4 @@
 /**
  * Inhalt von N21 - Semaphore als Signalgeber.
  */
-package ch.hslu.ad.exercise.n2.signal;
+package ch.hslu.sw06.exercise.n2.signal;

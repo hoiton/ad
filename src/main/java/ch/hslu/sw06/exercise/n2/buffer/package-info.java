@@ -17,4 +17,4 @@
 /**
  * Inhalt von N21 - Bounded Buffer mit Semaphore.
  */
-package ch.hslu.ad.exercise.n2.buffer;
+package ch.hslu.sw06.exercise.n2.buffer;

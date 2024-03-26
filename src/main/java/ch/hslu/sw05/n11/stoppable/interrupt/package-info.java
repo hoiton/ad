@@ -17,4 +17,4 @@
 /**
  * Inhalt von N11 - Sicheres Beenden eines Threads durch Interrupt.
  */
-package ch.hslu.ad.n11.stoppable.interrupt;
+package ch.hslu.sw05.n11.stoppable.interrupt;

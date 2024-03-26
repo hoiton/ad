@@ -18,4 +18,4 @@
  * Inhalt von N11 - Sicheres Beenden eines Threads durch Interrupt im 
  * Wartezustand.
  */
-package ch.hslu.ad.n11.stoppable.sleeping;
+package ch.hslu.sw05.n11.stoppable.sleeping;

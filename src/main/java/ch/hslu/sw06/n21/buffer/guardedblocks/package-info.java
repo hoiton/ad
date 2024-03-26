@@ -17,4 +17,4 @@
 /**
  * Inhalt von N21 - FIFO Queue als Bounded Buffer.
  */
-package ch.hslu.ad.n21.buffer.guardedblocks;
+package ch.hslu.sw06.n21.buffer.guardedblocks;

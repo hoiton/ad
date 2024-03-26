@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.hslu.ad.n22.executor.virtual;
+package ch.hslu.sw06.n22.executor.virtual;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

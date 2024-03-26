@@ -17,4 +17,4 @@
 /**
  * Inhalt von N12 - Einfacher Zähler. Nicht Thread-sicher.
  */
-package ch.hslu.ad.n12.countersimple;
+package ch.hslu.sw05.n12.countersimple;

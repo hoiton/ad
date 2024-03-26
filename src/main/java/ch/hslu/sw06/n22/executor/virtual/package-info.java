@@ -16,4 +16,4 @@
 /**
  * Inhalt von N22 - Beispiel zu virtuellem Threadpool mit beliebiger Anzahl Workers.
  */
-package ch.hslu.ad.n22.executor.virtual;
+package ch.hslu.sw06.n22.executor.virtual;

@@ -17,4 +17,4 @@
 /**
  * Inhalt von N21 - Bounded Buffer mit Semaphore.
  */
-package ch.hslu.ad.n21.buffer.sema;
+package ch.hslu.sw06.n21.buffer.sema;

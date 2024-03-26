@@ -17,4 +17,4 @@
 /**
  * Inhalt von N21 - Beispiel Verlorene Signale.
  */
-package ch.hslu.ad.n21.lostsignals;
+package ch.hslu.sw06.n21.lostsignals;

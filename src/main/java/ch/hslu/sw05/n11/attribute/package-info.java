@@ -17,4 +17,4 @@
 /**
  * Inhalt von N11 - Attribute des main Threads.
  */
-package ch.hslu.ad.n11.attribute;
+package ch.hslu.sw05.n11.attribute;

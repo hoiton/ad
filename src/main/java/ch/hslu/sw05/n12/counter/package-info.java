@@ -17,4 +17,4 @@
 /**
  * Inhalt von N12 - Einfacher Zähler.
  */
-package ch.hslu.ad.n12.counter;
+package ch.hslu.sw05.n12.counter;

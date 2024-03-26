@@ -17,4 +17,4 @@
  * Inhalt von N11 - Thread Erzeugung und Start mit Runnable, 
  * sowie Demo des Runnable Zustands.
  */
-package ch.hslu.ad.n11.mytask;
+package ch.hslu.sw05.n11.mytask;

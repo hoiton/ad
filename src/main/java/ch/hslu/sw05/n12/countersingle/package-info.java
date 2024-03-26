@@ -17,4 +17,4 @@
 /**
  * Inhalt von N12 - Globaler Zähler.
  */
-package ch.hslu.ad.n12.countersingle;
+package ch.hslu.sw05.n12.countersingle;
