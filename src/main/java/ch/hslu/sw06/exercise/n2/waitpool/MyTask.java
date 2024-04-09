@@ -34,17 +34,27 @@ public final class MyTask implements Runnable {
         this.lock = lock;
     }
 
+    public Object getLock() {
+        return lock;
+    }
+
     @Override
     public void run() {
         LOG.info("warten...");
         synchronized (lock) {
             try {
-                wait();
+                lock.wait();
             } catch (InterruptedException ex) {
                 /* Exception handling... */
                 return;
             }
         }
         LOG.info("...aufgewacht");
+    }
+
+    public void notifyTest() {
+        synchronized (lock) {
+            lock.notify();
+        }
     }
 }

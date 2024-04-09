@@ -24,6 +24,8 @@ public final class Semaphore {
     private int sema; // Semaphorenzähler
     private int count; // Anzahl der wartenden Threads.
 
+    private int limit; // Maximale Anzahl der Passiersignale.
+
     /**
      * Erzeugt ein Semaphore mit 0 Passiersignalen.
      */
@@ -43,6 +45,7 @@ public final class Semaphore {
         }
         sema = permits;
         count = 0;
+        limit = Integer.MAX_VALUE;
     }
 
     /**
@@ -53,8 +56,16 @@ public final class Semaphore {
      * @throws IllegalArgumentException wenn Argumente ungültige Werte besitzen.
      */
     public Semaphore(final int permits, final int limit) throws IllegalArgumentException {
-        this(0);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (permits < 0) {
+            throw new IllegalArgumentException(permits + " < 0");
+        }
+
+        if (limit < 0) {
+            throw new IllegalArgumentException(permits + " < 0");
+        }
+        sema = permits;
+        this.limit = limit;
+        count = 0;
     }
 
     /**
@@ -66,6 +77,10 @@ public final class Semaphore {
      * wird.
      */
     public synchronized void acquire() throws InterruptedException {
+        if (count == limit) {
+            throw new InterruptedException("Limit erreicht");
+        }
+
         while (sema == 0) {
             count++;
             this.wait();
@@ -84,7 +99,13 @@ public final class Semaphore {
      * wird.
      */
     public synchronized void acquire(final int permits) throws InterruptedException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        while (sema < permits) {
+            count++;
+            this.wait();
+            count--;
+        }
+
+        sema -= permits;
     }
 
     /**
@@ -104,7 +125,8 @@ public final class Semaphore {
      * @param permits Anzahl Passiersignale zur Freigabe.
      */
     public synchronized void release(final int permits) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        sema += permits;
+        this.notifyAll();
     }
 
     /**

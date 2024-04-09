@@ -36,12 +36,14 @@ public final class Turf {
      * Main-Demo.
      * @param args not used.
      */
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws InterruptedException {
         final Synch starterBox = new Latch();
+        Thread test = null;
         for (int i = 1; i <= HORSES; i++) {
-            Thread.startVirtualThread(new RaceHorse(starterBox, "Horse " + i));
+            test = Thread.startVirtualThread(new RaceHorse(starterBox, "Horse " + i));
         }
         LOG.info("Start...");
         starterBox.release();
+        test.join();
     }
 }
