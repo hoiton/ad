@@ -47,6 +47,11 @@ public final class Producer implements Callable<Long> {
      */
     @Override
     public Long call() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        long sum = 0;
+        for (int i = 1; i <= maxRange; i++) {
+            sum += i;
+            list.add(i);
+        }
+        return sum;
     }
 }

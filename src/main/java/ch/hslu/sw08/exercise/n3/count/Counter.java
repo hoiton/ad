@@ -25,19 +25,19 @@ public interface Counter {
      *
      * @return gibt den neuen Zählerstand zurück.
      */
-    public int increment();
+    int increment();
 
     /**
      * Zähler um 1 subtrahieren.
      *
      * @return gibt den neuen Zählerstand zurück.
      */
-    public int decrement();
+    int decrement();
 
     /**
      * Liefert den Zählerstand.
      *
      * @return aktueller Zählerstand.
      */
-    public int get();
+    int get();
 }

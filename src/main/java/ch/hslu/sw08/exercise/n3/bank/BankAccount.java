@@ -15,12 +15,14 @@
  */
 package ch.hslu.sw08.exercise.n3.bank;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Einfaches Bankkonto, das nur den Kontostand beinhaltet.
  */
 public final class BankAccount {
 
-    private int balance;
+    private AtomicInteger balance;
 
     /**
      * Erzeugt ein Bankkonto mit einem Anfangssaldo.
@@ -28,7 +30,7 @@ public final class BankAccount {
      * @param balance Anfangssaldo
      */
     public BankAccount(final int balance) {
-        this.balance = balance;
+        this.balance = new AtomicInteger(balance);
     }
 
     /**
@@ -44,7 +46,7 @@ public final class BankAccount {
      * @return Kontostand.
      */
     public int getBalance() {
-        return this.balance;
+        return this.balance.get();
     }
 
     /**
@@ -53,7 +55,7 @@ public final class BankAccount {
      * @param amount Einzuzahlender Betrag
      */
     public void deposite(final int amount) {
-        this.balance += amount;
+        this.balance.addAndGet(amount);
     }
 
     /**
@@ -63,7 +65,7 @@ public final class BankAccount {
      * @param amount zu überweisender Betrag.
      */
     public void transfer(final BankAccount target, final int amount) {
-        this.balance -= amount;
+        this.balance.addAndGet(-amount);
         target.deposite(amount);
     }
 }

@@ -16,6 +16,10 @@
 package ch.hslu.sw08.exercise.n3.bank;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -38,7 +42,7 @@ public final class DemoBankAccount {
      * @param args not used.
      * @throws InterruptedException wenn Warten unterbrochen wird.
      */
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
         final ArrayList<BankAccount> source = new ArrayList<>();
         final ArrayList<BankAccount> target = new ArrayList<>();
         final int amount = 100_000;
@@ -47,10 +51,20 @@ public final class DemoBankAccount {
             source.add(new BankAccount(amount));
             target.add(new BankAccount());
         }
-        // Account Tasks starten...
-        if (true) {
-            throw new UnsupportedOperationException("Account Tasks starten...");
+
+        var futures = new ArrayList<Future>();
+
+        try (var executor = Executors.newFixedThreadPool(12)) {
+            for (int i = 0; i < number; i++) {
+                futures.add(executor.submit(new AccountTask(source.get(i), target.get(i), amount), null));
+                futures.add(executor.submit(new AccountTask(target.get(i), source.get(i), amount), null));
+            }
         }
+
+        for (var future : futures) {
+            future.get();
+        }
+
         LOG.info("Bank accounts after transfers");
         for (int i = 0; i < number; i++) {
             LOG.info("source({}) = {}; target({}) = {};", i, source.get(i).getBalance(), i, target.get(i).getBalance());

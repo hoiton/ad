@@ -17,6 +17,10 @@ package ch.hslu.sw08.exercise.n3.prime;
 
 import java.math.BigInteger;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -39,13 +43,25 @@ public final class PrimeCheck {
      * @param args not used.
      */
     public static void main(String[] args) {
-        int n = 1;
-        while (n <= 100) {
-            BigInteger bi = new BigInteger(1024, new Random());
-            if (bi.isProbablePrime(Integer.MAX_VALUE)) {
-                LOG.info("{} : {}...", n, bi.toString().substring(0, 20));
-                n++;
+        final int nThreads = 12;
+        final AtomicInteger n = new AtomicInteger(0);
+        var semaphore = new Semaphore(nThreads, true);
+        try (var executor = Executors.newFixedThreadPool(nThreads)) {
+            while (n.get() <= 100) {
+                semaphore.acquire();
+                executor.submit(() -> {
+                    BigInteger bi = new BigInteger(1024, new Random());
+                    if (bi.isProbablePrime(Integer.MAX_VALUE)) {
+                        synchronized (n) {
+                            LOG.info("{} : {}...", n, bi.toString().substring(0, 20));
+                            n.incrementAndGet();
+                        }
+                    }
+                    semaphore.release();
+                });
             }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }

@@ -15,8 +15,9 @@
  */
 package ch.hslu.sw08.exercise.n3.count;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.ArrayList;
+import java.util.concurrent.*;
+
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -42,11 +43,28 @@ public final class SpeedCount {
      */
     public static long speedTest(Counter counter, int counts, int threads) {
         try (final ExecutorService executor = Executors.newCachedThreadPool()) {
+            var start = System.nanoTime();
+            var futures = new ArrayList<Future<Integer>>();
+
             for (int i = 0; i < threads; i++) {
-                executor.submit(new CountTask(counter, counts));
+                Future<Integer> future = executor.submit(new CountTask(counter, counts));
+                futures.add(future);
             }
-            long duration = -1L;
-            return duration;
+
+            for (Future<Integer> future : futures) {
+                future.get();
+            }
+
+            if (counter.get() != 0) {
+                throw new IllegalStateException("Counter test failed: " + counter.get() + " != 0");
+            }
+
+            var elapsed = System.nanoTime() - start;
+            return elapsed / 1_000_000;
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
         } finally {
             // Executor shutdown
         }
@@ -57,16 +75,18 @@ public final class SpeedCount {
      * @param args not used.
      */
     public static void main(final String args[]) {
-        final int passes = 1;
-        final int threads = 1;
-        final int counts = 1_000;
+        final int passes = 20;
+        final int threads = 12;
+        final int counts = 1_0000;
         final Counter counterSync = new SynchronizedCounter();
         long sumSync = 0;
+        speedTest(counterSync, counts, threads);
         for (int i = 0; i < passes; i++) {
             sumSync += speedTest(counterSync, counts, threads);
         }
         final Counter counterAtom = new AtomicCounter();
         long sumAtom = 0;
+        speedTest(counterAtom, counts, threads);
         for (int i = 0; i < passes; i++) {
             sumAtom += speedTest(counterAtom, counts, threads);
         }

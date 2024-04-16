@@ -15,10 +15,7 @@
  */
 package ch.hslu.sw08.exercise.n3.conclist;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -47,7 +44,7 @@ public final class DemoConcurrentList {
      * @throws java.util.concurrent.ExecutionException bei Excecution-Fehler.
      */
     public static void main(final String args[]) throws InterruptedException, ExecutionException {
-        final List<Integer> list = new LinkedList<>();
+        final List<Integer> list = Collections.synchronizedList(new LinkedList<>());
         final List<Future<Long>> futures = new ArrayList<>();
         try (final ExecutorService executor = Executors.newCachedThreadPool()) {
             for (int i = 0; i < 3; i++) {
