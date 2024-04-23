@@ -45,23 +45,23 @@ public final class PrimeCheck {
     public static void main(String[] args) {
         final int nThreads = 12;
         final AtomicInteger n = new AtomicInteger(0);
-        var semaphore = new Semaphore(nThreads, true);
         try (var executor = Executors.newFixedThreadPool(nThreads)) {
-            while (n.get() <= 100) {
-                semaphore.acquire();
+            for (int i = 0; i < nThreads; i++) {
                 executor.submit(() -> {
-                    BigInteger bi = new BigInteger(1024, new Random());
-                    if (bi.isProbablePrime(Integer.MAX_VALUE)) {
-                        synchronized (n) {
-                            LOG.info("{} : {}...", n, bi.toString().substring(0, 20));
-                            n.incrementAndGet();
+                    while (n.get() < 100) {
+                        BigInteger bi = new BigInteger(1024, new Random());
+                        if (bi.isProbablePrime(Integer.MAX_VALUE)) {
+                            synchronized (n) {
+                                if (n.get() < 100)
+                                {
+                                    n.incrementAndGet();
+                                    LOG.info("{} : {}...", n, bi.toString().substring(0, 20));
+                                }
+                            }
                         }
                     }
-                    semaphore.release();
                 });
             }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
     }
 }
