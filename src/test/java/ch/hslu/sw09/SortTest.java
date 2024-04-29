@@ -14,7 +14,7 @@ class SortTest {
 
     public SortTest() {
         Random rd = new Random(3); // creating Random object
-        final int length = 50000;
+        final int length = 500_000;
         Integer[] arr = new Integer[length];
         for (int i = 0; i < arr.length; i++) {
             arr[i] = rd.nextInt(); // storing random integers in an array
@@ -104,5 +104,17 @@ class SortTest {
 
         assertArrayEquals(this.sorted, this.randomized);
         System.out.println(ms + "ms for insertionSort");
+    }
+
+    @Test
+    void randomizedQuickSort() {
+        var start = System.nanoTime();
+
+        ch.hslu.sw10.Sort.quickSort(this.randomized);
+        var elapsed = System.nanoTime() - start;
+        var ms = elapsed / 1_000_000;
+
+        assertArrayEquals(this.sorted, this.randomized);
+        System.out.println(ms + "ms for quickSort");
     }
 }
