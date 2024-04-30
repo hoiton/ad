@@ -15,9 +15,13 @@
  */
 package ch.hslu.sw11.exercise.n4.mergesort;
 
+import ch.hslu.sw09.Sort;
 import ch.hslu.sw11.n41.array.init.RandomInitTask;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ForkJoinPool;
+
+import ch.hslu.util.AsciiTable;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -40,20 +44,56 @@ public final class DemoMergesort {
      * @param args not used.
      */
     public static void main(final String[] args) {
-        final int size = 300_000;
+
+        AsciiTable table = new AsciiTable();
+        table.setMaxColumnWidth(45);
+
+        table.getColumns().add(new AsciiTable.Column("Threshold"));
+        table.getColumns().add(new AsciiTable.Column("Conc. Mergesort (ms)"));
+        table.getColumns().add(new AsciiTable.Column("Mergesort Rec. (ms)"));
+
+
+
+        final int size = 10_000_000;
         final int[] arrayOriginal = new int[size];
         try (final ForkJoinPool pool = new ForkJoinPool()) {
             RandomInitTask initTask = new RandomInitTask(arrayOriginal, 100);
             pool.invoke(initTask);
-            int[] array = Arrays.copyOf(arrayOriginal, size);
-            final MergesortTask sortTask = new MergesortTask(array);
-            pool.invoke(sortTask);
-            LOG.info("Conc. Mergesort : {} sec.", '?');
-            array = Arrays.copyOf(arrayOriginal, size);
-            MergesortRecursive.mergeSort(array);
-            LOG.info("MergesortRec.   : {} sec.", '?');
+
+            for (int value : List.of( 20, 5, 10, 40, 50, 60, 70, 80, 100, 500, 1000, 5000, 10000)) {
+
+                MergesortTask.THRESHOLD = value;
+
+                AsciiTable.Row row = new AsciiTable.Row();
+                table.getData().add(row);
+
+                if (value == 20) {
+                    row.getValues().add("Warmup");
+                } else {
+                    row.getValues().add("" + value);
+                }
+                int[] array = Arrays.copyOf(arrayOriginal, size);
+
+                var start = System.nanoTime();
+                final MergesortTask sortTask = new MergesortTask(array);
+                pool.invoke(sortTask);
+                var elapsed = System.nanoTime() - start;
+                var ms = elapsed / 1_000_000;
+                row.getValues().add("" + ms);
+
+                start = System.nanoTime();
+                array = Arrays.copyOf(arrayOriginal, size);
+                MergesortRecursive.mergeSort(array);
+                elapsed = System.nanoTime() - start;
+                ms = elapsed / 1_000_000;
+                row.getValues().add("" + ms);
+            }
         } finally {
             // Executor shutdown
         }
+
+
+        table.calculateColumnWidth();
+        table.render();
     }
 }
