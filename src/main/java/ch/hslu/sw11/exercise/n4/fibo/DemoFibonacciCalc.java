@@ -66,14 +66,26 @@ public final class DemoFibonacciCalc {
         final int n = 42;
         final FibonacciTask task = new FibonacciTask(n);
         LOG.info("fibo({}) start...", n);
+        var start = System.nanoTime();
         long result = task.invoke();
+        var elapsed = System.nanoTime() - start;
+        var ms = elapsed / 1_000_000_000.0;
         LOG.info("Conc. recursive = {}", result);
-        LOG.info("Conc. recursive : {} msec.", '?');
+        LOG.info("Conc. recursive : {} msec.", ms);
+
+
+        start = System.nanoTime();
         result = fiboIterative(n);
+        elapsed = System.nanoTime() - start;
+        ms = elapsed / 1_000_000_000.0;
         LOG.info("Func. iterative = {}", result);
-        LOG.info("Func. iterative : {} msec.", '?');
+        LOG.info("Func. iterative : {} msec.", ms);
+
+        start = System.nanoTime();
         result = fiboRecursive(n);
+        elapsed = System.nanoTime() - start;
+        ms = elapsed / 1_000_000_000.0;
         LOG.info("Func. recursive = {}", result);
-        LOG.info("Func. recursive : {} sec.", '?');
+        LOG.info("Func. recursive : {} sec.", ms);
     }
 }

@@ -40,21 +40,35 @@ public final class DemoQuicksort {
      * @param args not used.
      */
     public static void main(final String[] args) {
-        final int size = 300_000;
+        final int size = 10_000;
         final int[] arrayOriginal = new int[size];
         try (final ForkJoinPool pool = new ForkJoinPool()) {
             RandomInitTask initTask = new RandomInitTask(arrayOriginal, 100);
             pool.invoke(initTask);
+
             int[] arrayTask = Arrays.copyOf(arrayOriginal, size);
+            var start = System.nanoTime();
             final QuicksortTask sortTask = new QuicksortTask(arrayTask);
             pool.invoke(sortTask);
-            LOG.info("QuicksortTask  : {} sec.", '?');
+            var elapsed = System.nanoTime() - start;
+            var ms = elapsed / 1_000_000_000.0;
+            LOG.info("QuicksortTask  : {} sec.", ms);
+
+
             int[] arrayRec = Arrays.copyOf(arrayOriginal, size);
+            start = System.nanoTime();
             QuicksortRecursive.quicksort(arrayRec);
-            LOG.info("QuicksortRec.  : {} sec.", '?');
+            elapsed = System.nanoTime() - start;
+            ms = elapsed / 1_000_000_000.0;
+            LOG.info("QuicksortRec.  : {} sec.", ms);
+
+
             int[] arraySort = Arrays.copyOf(arrayOriginal, size);
+            start = System.nanoTime();
             Arrays.sort(arraySort);
-            LOG.info("Arrays.sort    : {} sec.", '?');
+            elapsed = System.nanoTime() - start;
+            ms = elapsed / 1_000_000_000.0;
+            LOG.info("Arrays.sort    : {} sec.", ms);
         } finally {
             // Executor shutdown
         }

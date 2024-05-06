@@ -16,6 +16,8 @@
 package ch.hslu.sw11.exercise.n4.findfile;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountedCompleter;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -41,12 +43,30 @@ public final class FindFileTask extends CountedCompleter<String> {
 
     private FindFileTask(final CountedCompleter<?> parent, final String regex, final File dir,
             final AtomicReference<String> result) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.regex = regex;
+        this.dir = dir;
+        this.result = result;
     }
 
     @Override
     public void compute() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final File[] list = dir.listFiles();
+        final List<FindFileTask> children = new ArrayList<>();
+        if (list != null) {
+            for (File file : list) {
+                if (file.isDirectory()) {
+                    var task = new FindFileTask(this, regex, file, result);
+                    task.fork();
+                    children.add(task);
+                } else if (regex.equalsIgnoreCase(file.getName())) {
+                    result.set(file.getParentFile().toString());
+                    return;
+                }
+            }
+            for (FindFileTask child : children) {
+                child.join();
+            }
+        }
     }
 
     @Override

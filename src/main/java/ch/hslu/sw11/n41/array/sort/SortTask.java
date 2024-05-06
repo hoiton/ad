@@ -24,7 +24,7 @@ import java.util.concurrent.RecursiveAction;
 @SuppressWarnings("serial")
 public final class SortTask extends RecursiveAction {
 
-    private static final int THRESHOLD = 5;
+    private static final int THRESHOLD = 50;
     private final int[] array;
     private final int min;
     private final int max;

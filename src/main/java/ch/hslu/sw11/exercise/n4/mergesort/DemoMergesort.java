@@ -54,7 +54,7 @@ public final class DemoMergesort {
 
 
 
-        final int size = 10_000_000;
+        final int size = 300_000_000;
         final int[] arrayOriginal = new int[size];
         try (final ForkJoinPool pool = new ForkJoinPool()) {
             RandomInitTask initTask = new RandomInitTask(arrayOriginal, 100);

@@ -33,25 +33,79 @@ public final class QuicksortRecursive {
     /**
      * Recursive quicksort logic.
      *
-     * @param array input array.
-     * @param startIdx start index of the array.
-     * @param endIdx end index of the array.
+     * @param arr input array.
+     * @param low start index of the array.
+     * @param high end index of the array.
      */
-    public static void quicksort(int[] array, int startIdx, int endIdx) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static void quicksort(int[] arr, int low, int high) {
+        while (low < high) {
+            // Check if array size on which we will be working is less than 10
+            if (high - low < 10) {
+                insertionSort(arr, low, high);
+                break;
+            }
+            else {
+                int pivot = partition(arr, low, high);
+
+                // We will do recursion on small size
+                // subarray So we can check pivot - low  and
+                // pivot - high
+
+                if (pivot - low < pivot - high) {
+                    quicksort(arr, low, pivot - 1);
+                    low = pivot + 1;
+                }
+                else {
+                    quicksort(arr, pivot + 1, high);
+                    high = pivot - 1;
+                }
+            }
+        }
     }
 
     /**
      * Divides array from pivot, left side contains elements less than Pivot
      * while right side contains elements greater than pivot.
      *
-     * @param array array to partitioned.
-     * @param left lower bound of the array.
-     * @param right upper bound of the array.
+     * @param arr array to partitioned.
+     * @param low lower bound of the array.
+     * @param high upper bound of the array.
      * @return the partition index.
      */
-    public static int partition(int[] array, int left, int right) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static int partition(int[] arr, int low, int high) {
+        int pivot = arr[high];
+        int i = low;
+        int j = low;
+
+        while (i <= high) {
+            if (arr[i] > pivot)
+                i++;
+            else {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                i++;
+                j++;
+            }
+        }
+        return j - 1;
+    }
+
+    private static void insertionSort(int a[], int low,
+                                      int high)
+    {
+        for (int i = low + 1; i <= high; i++) {
+            for (int j = i - 1; j >= low; j--) {
+                if (a[j] > a[j + 1]) {
+                    // Swap
+                    int temp = a[j];
+                    a[j] = a[j + 1];
+                    a[j + 1] = temp;
+                }
+                else
+                    break;
+            }
+        }
     }
 
     private static void exchange(final int[] array, final int i, final int j) {

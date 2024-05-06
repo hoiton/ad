@@ -15,6 +15,8 @@
  */
 package ch.hslu.sw11.exercise.n4.fibo;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.RecursiveTask;
 
 /**
@@ -22,6 +24,8 @@ import java.util.concurrent.RecursiveTask;
  */
 @SuppressWarnings("serial")
 public final class FibonacciTask extends RecursiveTask<Long> {
+
+    private static final Map<Integer, Long> results = new ConcurrentHashMap<Integer, Long>();
 
     private final int n;
 
@@ -36,6 +40,19 @@ public final class FibonacciTask extends RecursiveTask<Long> {
 
     @Override
     protected Long compute() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (n <= 1) {
+            return (long) n;
+        } else {
+            if (results.containsKey(n)) {
+                return results.get(n);
+            }
+
+            final FibonacciTask f1 = new FibonacciTask(n - 1);
+            f1.fork();
+            final FibonacciTask f2 = new FibonacciTask(n - 2);
+            var result = f2.compute() + f1.join();
+            results.put(n, result);
+            return result;
+        }
     }
 }
